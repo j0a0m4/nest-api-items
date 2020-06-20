@@ -7,9 +7,9 @@ import {
   Delete,
   Put,
 } from '@nestjs/common';
-import { CreateItemDto } from './dto/create-item.dto';
 import { ItemsService } from './items.service';
-import { Item } from './interfaces/item.interface';
+import { Item } from './item.interface';
+import { ItemDTO } from './item.dto';
 
 @Controller('items')
 export class ItemsController {
@@ -21,8 +21,8 @@ export class ItemsController {
   }
 
   @Post()
-  create(@Body() createItemDto: CreateItemDto): Promise<Item> {
-    return this.itemsService.create(createItemDto);
+  create(@Body() ItemDTO: ItemDTO): Promise<Item> {
+    return this.itemsService.create(ItemDTO);
   }
 
   @Get(':id')
@@ -36,10 +36,7 @@ export class ItemsController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateItemDto: CreateItemDto,
-  ): Promise<Item> {
-    return this.itemsService.update(id, updateItemDto);
+  update(@Param('id') id: string, @Body() ItemDTO: ItemDTO): Promise<Item> {
+    return this.itemsService.update(id, ItemDTO);
   }
 }
